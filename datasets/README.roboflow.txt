@@ -1,8 +1,8 @@
 
-Hold Detector - v12 2023-11-29 11:37pm
+Hold Detector - v13 2023-11-30 11:08am
 ==============================
 
-This dataset was exported via roboflow.com on November 30, 2023 at 4:40 AM GMT
+This dataset was exported via roboflow.com on November 30, 2023 at 4:10 PM GMT
 
 Roboflow is an end-to-end computer vision platform that helps you
 * collaborate with your team on computer vision projects
@@ -17,14 +17,15 @@ visit https://github.com/roboflow/notebooks
 
 To find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com
 
-The dataset includes 36 images.
+The dataset includes 101 images.
 Climbing-holds are annotated in YOLOv8 format.
 
 The following pre-processing was applied to each image:
 * Auto-orientation of pixel data (with EXIF-orientation stripping)
 * Resize to 640x640 (Stretch)
-* Auto-contrast via adaptive equalization
 
-No image augmentation techniques were applied.
+The following augmentation was applied to create 3 versions of each source image:
+* Randomly crop between 0 and 50 percent of the image
+* Random brigthness adjustment of between -25 and +25 percent
 
 
