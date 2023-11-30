@@ -1,0 +1,12 @@
+names:
+- hold
+nc: 1
+roboflow:
+  license: CC BY 4.0
+  project: hold-detector
+  url: https://universe.roboflow.com/aiclimbing/hold-detector/dataset/12
+  version: 12
+  workspace: aiclimbing
+test: ../test/images
+train: Hold-Detector-12/train/images
+val: Hold-Detector-12/valid/images
