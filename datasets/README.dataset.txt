@@ -1,4 +1,4 @@
-# Hold Detector > 2023-11-29 11:37pm
+# Hold Detector > 2023-11-30 11:08am
 https://universe.roboflow.com/aiclimbing/hold-detector
 
 Provided by a Roboflow user
