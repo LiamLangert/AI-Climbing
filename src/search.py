@@ -57,7 +57,7 @@ def nullHeuristic(state, problem=None):
     """
     return 0
 
-def search(problem: SearchProblem, algorithm: str, heuristic=nullHeuristic):
+def search(problem: UCSSearchProblem, algorithm: str, heuristic=nullHeuristic):
     if algorithm in ['BFS', 'DFS']:
         if algorithm == 'DFS':
             frontier = util.Stack()
@@ -115,7 +115,7 @@ def search(problem: SearchProblem, algorithm: str, heuristic=nullHeuristic):
     return []
 
 
-def depthFirstSearch(problem: SearchProblem):
+def depthFirstSearch(problem: UCSSearchProblem):
     """
     Search the deepest nodes in the search tree first.
     Your search algorithm needs to return a list of actions that reaches the
@@ -125,19 +125,19 @@ def depthFirstSearch(problem: SearchProblem):
 
     return search(problem=problem, algorithm="DFS")
 
-def breadthFirstSearch(problem: SearchProblem):
+def breadthFirstSearch(problem: UCSSearchProblem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
     return search(problem=problem, algorithm="BFS")
 
-def uniformCostSearch(problem: SearchProblem):
+def uniformCostSearch(problem: UCSSearchProblem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
     
     return search(problem=problem, algorithm="UCS")
     
 
-def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
+def aStarSearch(problem: UCSSearchProblem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
     return search(problem=problem, algorithm="A*", heuristic=heuristic)
