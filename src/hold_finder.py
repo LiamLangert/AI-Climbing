@@ -1,3 +1,5 @@
+import pathlib
+import platform
 from PIL import Image
 import numpy as np
 from ultralytics import YOLO
@@ -5,8 +7,13 @@ from ultralytics.engine.results import Boxes
 import cv2
 import os
 
+plt = platform.system()
+if plt != 'Windows': pathlib.WindowsPath = pathlib.PosixPath
+
 # Load a pretrained YOLOv8n model
 model = YOLO('../runs/detect/yolov8n_v8_50e22/weights/best.pt')
+
+
 
 def predictHolds(path):
     return model.predict(path)
