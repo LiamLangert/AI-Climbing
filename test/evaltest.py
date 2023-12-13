@@ -124,7 +124,7 @@ class Test(unittest.TestCase):
         self.assertEqual(person.wingspan, person.height * 1.06)
 
     def test_state_difficulty(self):
-        holdlh = Hold(coords=())
+        holdlh = Hold(coords=(1, 2), width=)
         holdrh
         holdlf
         holdrf
