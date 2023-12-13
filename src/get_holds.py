@@ -5,16 +5,17 @@ import numpy as np
 import sys
 
 class Hold:
-    def __init__(self, coords, width, height, diff, angle):
+    def __init__(self, x, y, width, height, diff, angle):
         #Coords = top left corner
-        self.coords = coords
-        self.diff = diff
+        self.x = x
+        self.y = y
         self.width = width
         self.height = height
+        self.diff = diff
         self.angle = angle
     
     def __repr__(self):
-        return (f"""Hold: Top left at {self.coords[0]}, {self.coords[1]}
+        return (f"""Hold: Top left at {self.x}, {self.y}
                 Width = {self.width}, Height = {self.height}
                 Difficulty = {round(self.diff, 2)}/10, Angle = {self.angle} degrees\n""")
     
@@ -31,7 +32,7 @@ def getHoldsArray(path, color, close):
             hold = getBoxAsImage(results, i)
             angle, diff = getIdealRotation(hold)
             if diff != "tag" and diff != "bolt" and diff != "downclimb":
-                holds.append(Hold((boxes_data[i][0], boxes_data[i][1]), boxes_data[i][2], boxes_data[i][3], float(diff), int(angle)))
+                holds.append(Hold(x=boxes_data[i][0], y=boxes_data[i][1], width=boxes_data[i][2], height=boxes_data[i][3], diff=float(diff), angle=int(angle)))
     return holds
 
 def main(argv):
