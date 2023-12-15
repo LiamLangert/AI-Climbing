@@ -43,7 +43,7 @@ def getResults(results):
             10 * guesses[2]
             + 5 * guesses[3]
             + 4 * guesses[4]
-            + 11 * guesses[5 ]
+            + 11 * guesses[5]
             + 1 * guesses[6]
             + 7 * guesses[7]
             + 6 * guesses[8]
