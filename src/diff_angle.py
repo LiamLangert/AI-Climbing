@@ -7,8 +7,7 @@ from PIL import Image
 plt = platform.system()
 if plt != 'Windows': pathlib.WindowsPath = pathlib.PosixPath
 # Load a pretrained YOLOv8n model
-model = YOLO('runs/classify/train4/weights/best.pt')
-print(model)
+model = YOLO('../runs/classify/train4/weights/best.pt')
 
 def predictDiff(path):
     return model.predict(path)

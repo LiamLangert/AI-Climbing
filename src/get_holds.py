@@ -33,7 +33,7 @@ class Hold:
                 Width = {self.width}, Height = {self.height}
                 Difficulty = {round(self.diff, 2)}/10, Angle = {self.angle} degrees\n""")
     
-def getHoldsArray(path, color, close):
+def get_holds_array(path, color, close):
     results = predictHolds(path)
     results = removeEdges(results)
     results = getHoldsNearColor(results, color, close)
@@ -50,7 +50,7 @@ def getHoldsArray(path, color, close):
     return holds
 
 def main(argv):
-    print(getHoldsArray(argv[0], np.array([int(argv[1]), int(argv[2]), int(argv[3])]), int(argv[4])))
+    print(get_holds_array(argv[0], np.array([int(argv[1]), int(argv[2]), int(argv[3])]), int(argv[4])))
     return 0
 
 if __name__ == "__main__":
