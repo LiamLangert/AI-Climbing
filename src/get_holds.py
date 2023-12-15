@@ -1,6 +1,6 @@
 import hold_finder, diff_angle
 from hold_finder import predictHolds, getBoxAsImage, getHoldsNearColor, dispResults, removeEdges, remove_bad_holds
-from diff_angle import predictDiff, getResults, getIdealRotation
+from diff_angle import getIdealRotation
 import importlib
 importlib.reload(diff_angle)
 importlib.reload(hold_finder)
