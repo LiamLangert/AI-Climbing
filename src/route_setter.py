@@ -29,13 +29,8 @@ def main(holds, i1, i2, height):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        '-l',
-        '--holds',
-        help='list of holds',
-        required=True,
-        type=str
-    )
+    parser.add_argument('holds', metavar='N', type=Hold, nargs='*',
+                    help='a list of strings')
     parser.add_argument(
         '-o',
         '--index1',
@@ -60,8 +55,8 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
-    file = str(args.file)
+    holds = str(args.holds)
     i1 = int(args.index1)
     i2 = int(args.index2)
     height = int(args.height)
-    main(file, i1, i2, height)
+    main(holds, i1, i2, height)
