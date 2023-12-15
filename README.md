@@ -2,10 +2,12 @@
 # Overview of repository
 images:
 - contains images that were used for testing, not important for user
+  
 pytorch:
 - used for training, not important for user
+  
 runs:
-- images that were used for training/testing purposes
+- models that were used for training/testing purposes
 
 src:
 - Contains files that were used for training model and solving route
@@ -15,10 +17,6 @@ like, and observe where the start holds are. This script is run by inputting the
 route setter script, which actually sets the route. This script can be run by passing in the list of holds from the previous script, the index of two start holds
 in the list, and your height.
 
-
-
-## How to use
-Fork this repository, and 
 
 ### Color to HSV, Range
 - Red: 0 20 30 10 
