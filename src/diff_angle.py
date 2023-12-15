@@ -5,9 +5,14 @@ import platform
 from roboflow import Roboflow
 from PIL import Image
 plt = platform.system()
-if plt != 'Windows': pathlib.WindowsPath = pathlib.PosixPath
+if plt != 'Windows': 
+    pathlib.WindowsPath = pathlib.PosixPath
+else:
+    pathlib.PosixPath = pathlib.WindowsPath
 # Load a pretrained YOLOv8n model
-model = YOLO('../runs/classify/train4/weights/best.pt')
+import os
+path = os.path.join('..','runs', 'difficultyFinal', 'weights', 'best.pt')
+model = YOLO(path)
 
 def predictDiff(path):
     return model.predict(path)
@@ -73,6 +78,9 @@ def getIdealRotation(image):
         conf = getConfidence(res)
         if i==0:
             diff = getResults(res)
+            if diff in ["bolt", "downclimb", "tag"]:
+                print(f"************************{diff}*********************")
+                return(0, diff)
         if (i == 0 and conf > best[1]) or (conf > best[1] + 0.3):
             best = ((360 - i * 45) % 360, conf)
     return (best[0], diff)

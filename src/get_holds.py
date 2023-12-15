@@ -1,6 +1,9 @@
 import hold_finder, diff_angle
 from hold_finder import predictHolds, getBoxAsImage, getHoldsNearColor, dispResults, removeEdges
 from diff_angle import predictDiff, getResults, getIdealRotation
+import importlib
+importlib.reload(diff_angle)
+importlib.reload(hold_finder)
 import numpy as np
 import sys
 
@@ -47,6 +50,8 @@ def get_holds_array(path, color, close):
             angle, diff = getIdealRotation(hold)
             if diff != "tag" and diff != "bolt" and diff != "downclimb":
                 holds.append(Hold(x=boxes_data[i][0], y=boxes_data[i][1], width=boxes_data[i][2], height=boxes_data[i][3], diff=float(diff), angle=int(angle)))
+            else:
+                print(f"FOUND {diff} at {boxes_data[i][0]}, {boxes_data[i][1]}")
     return holds
 
 def main(argv):
