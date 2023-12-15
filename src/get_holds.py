@@ -1,5 +1,5 @@
 import hold_finder, diff_angle
-from hold_finder import predictHolds, getBoxAsImage, getHoldsNearColor, dispResults, removeEdges
+from hold_finder import predictHolds, getBoxAsImage, getHoldsNearColor, dispResults, removeEdges, remove_bad_holds
 from diff_angle import predictDiff, getResults, getIdealRotation
 import importlib
 importlib.reload(diff_angle)
@@ -40,6 +40,7 @@ def get_holds_array(path, color, close):
     results = predictHolds(path)
     results = removeEdges(results)
     results = getHoldsNearColor(results, color, close)
+    results = remove_bad_holds(results)
     
     dispResults(results)
     for r in results:

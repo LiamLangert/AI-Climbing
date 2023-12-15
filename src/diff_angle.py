@@ -4,11 +4,13 @@ import pathlib
 import platform
 from roboflow import Roboflow
 from PIL import Image
+
 plt = platform.system()
 if plt != 'Windows': 
     pathlib.WindowsPath = pathlib.PosixPath
 else:
     pathlib.PosixPath = pathlib.WindowsPath
+
 # Load a pretrained YOLOv8n model
 import os
 path = os.path.join('..','runs', 'difficultyFinal', 'weights', 'best.pt')
@@ -16,6 +18,7 @@ model = YOLO(path)
 
 def predictDiff(path):
     return model.predict(path)
+
 # Gets the image at the specified path as a numpy array
 def getImage(path):
     img = cv2.imread(path)
@@ -35,6 +38,7 @@ def getResults(results):
         aggregate = (10 * guesses[2] + 5 * guesses[3] + 4 * guesses[4] + 11 * guesses[5] + 
                      1 * guesses[6] + 7 * guesses[7] + 6 * guesses[8] + 12 * guesses[10] + 3 * guesses[11] + 2 * guesses[12]) 
         return min(float(aggregate), 10)
+
 def getConfidence(results):
     for r in results:
         guesses = r.probs.data

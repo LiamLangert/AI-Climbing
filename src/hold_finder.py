@@ -5,33 +5,50 @@ import numpy as np
 from ultralytics import YOLO
 from ultralytics.engine.results import Boxes
 import cv2
-import os
+import os, os.path
 
 plt = platform.system()
 if plt != 'Windows': pathlib.WindowsPath = pathlib.PosixPath
 
 # Load a pretrained YOLOv8n model
-model = YOLO('../runs/detect/yolov8n_v8_50e22/weights/best.pt')
+detect_model = YOLO('../runs/detect/yolov8n_v8_50e22/weights/best.pt')
+classify_model = YOLO('../runs/difficultyFinal/weights/best.pt')
 
 def predictHolds(path):
-    return model.predict(path)
+    return detect_model.predict(path)
 
 # Gets the image at the specified path as a numpy array
 def getImage(path):
+    """
+    Turns a path to an image into an numpy array
+    """
     img = cv2.imread(path)
     return img
 
 # Displays the results of model(image)
 def dispResults(results):
+    """
+    Displays the results in a file called results/results[index]
+    results: results from model
+    """
     for r in results:
         im_array = r.plot()  # plot a BGR numpy array of predictions
         im = Image.fromarray(im_array[..., ::-1])  # RGB PIL image
         im.show()  # show image
-        im.save('results.jpg')  # save image
+
+        DIR = '../images/results'
+        len_folder = len([name for name in os.listdir(DIR) if os.path.isfile(os.path.join(DIR, name))])
+        print(len_folder)
+
+        im.save(f'../images/results/results{len_folder}.jpg')  # save image
 
 # Removes all bounding boxes in the results of model(image)
 # that may be cut off by the sides
 def removeEdges(results):
+    """
+    Removes boxes where the edges are outside of the image
+    results: the results from the model
+    """
     for r in results:
         boxes_coords = np.array(r.boxes.xyxy)
         boxes_last = np.array(r.boxes.data[:, 4:])
@@ -50,6 +67,27 @@ def removeEdges(results):
         r.boxes = newboxes
     return results
 
+def remove_bad_holds(results):
+    """
+    Removes bolts, tags, and downclimbs from a route
+    results: the results from the model
+    """
+    for r in results:
+        boxes_data = np.array(r.boxes.data)
+        new_data = np.array([])
+        for i in range(len(boxes_data)):
+            img = getBoxAsImage(results, i)
+            hold_results = classify_model.predict(img)
+            for hold_result in hold_results:
+                guesses = hold_result.probs.data
+                if not guesses[0] == max(guesses) and not guesses[1] == max(guesses) and not guesses[9] == max(guesses):
+                    if len(new_data) == 0:
+                        new_data = np.array([boxes_data[i]])
+                    else:
+                        new_data = np.append(new_data, [boxes_data[i]], axis=0)
+        newboxes = Boxes(new_data, r.boxes.orig_shape)
+        r.boxes = newboxes
+    return results
 
 def getBoxAsImage(results, index):
     r = results[0]
