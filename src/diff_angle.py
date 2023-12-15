@@ -7,7 +7,8 @@ from PIL import Image
 plt = platform.system()
 if plt != 'Windows': pathlib.WindowsPath = pathlib.PosixPath
 # Load a pretrained YOLOv8n model
-model = YOLO('runs/classify/train3/weights/best.pt')
+model = YOLO('runs/classify/train4/weights/best.pt')
+print(model)
 
 def predictDiff(path):
     return model.predict(path)
@@ -25,6 +26,7 @@ def getResults(results):
         if guesses[1] == max(guesses):
             return "downclimb"
         if guesses[9] == max(guesses):
+            print(guesses[9])
             return "tag"
         aggregate = (10 * guesses[2] + 5 * guesses[3] + 4 * guesses[4] + 11 * guesses[5] + 
                      1 * guesses[6] + 7 * guesses[7] + 6 * guesses[8] + 12 * guesses[10] + 3 * guesses[11] + 2 * guesses[12]) 
@@ -68,6 +70,7 @@ def getIdealRotation(image):
     for i in range(7):
         rot = rotateImage(image, (i * 45))
         res = model.predict(rot)
+        print('running')
         conf = getConfidence(res)
         if i==0:
             diff = getResults(res)

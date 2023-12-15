@@ -13,8 +13,6 @@ if plt != 'Windows': pathlib.WindowsPath = pathlib.PosixPath
 # Load a pretrained YOLOv8n model
 model = YOLO('../runs/detect/yolov8n_v8_50e22/weights/best.pt')
 
-
-
 def predictHolds(path):
     return model.predict(path)
 
@@ -99,7 +97,6 @@ def getDomColor(img):
         hsv_palette[i] = np.array([hsv_palette[i][0], hsv_palette[i][1] * 100, hsv_palette[i][2] * 100 / 255.0])
     #compares the saturations of the two colors (to filter for the wall)
     sats = np.array([col[1] for col in hsv_palette])
-    #print(hsv_palette)
     return(hsv_palette[np.argmax(sats)])
 def closeEnough(color2, color1, close):
     if color1[1] == 0:
@@ -125,8 +122,6 @@ def getHoldsNearColor(results, color, close):
             img = getBoxAsImage(results, i)
             dom = getDomColor(img)
             if closeEnough(dom, color, close): 
-                #print("****")
-                #print(dom)
                 if len(new_data) == 0:
                     new_data = np.array([boxes_data[i]])
                 else:
