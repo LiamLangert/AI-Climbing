@@ -1,7 +1,5 @@
 holds/
 .venv/
-Classifier Data 2/
-Difficulty-Classifier/
 pytorch/
 runs/
 src/__pycache__
