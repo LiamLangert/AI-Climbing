@@ -2,10 +2,12 @@
 # Overview of repository
 images:
 - contains images that were used for testing, not important for user
+  
 pytorch:
 - used for training, not important for user
+  
 runs:
-- images that were used for training/testing purposes
+- models that were used for training/testing purposes
 
 src:
 - Contains files that were used for training model and solving route
