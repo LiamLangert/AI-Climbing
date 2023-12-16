@@ -7,17 +7,38 @@ importlib.reload(get_holds)
 import RouteFinder
 from RouteFinder import uniformCostSearch, Limb, State, Person, Route, moveToText, LimbName 
 
-def main(holds, i1, i2, height):
+def main(file, h, s, v, r):
+
+    source = file
+    
+    # Destination path 
+    destination = '../images/'
+    dest = shutil.move(source, destination, copy_function = shutil.copytree) 
+    hsv = [h, s, v]
+    holds = []
+    try: 
+        holds = getHoldsArray(dest, hsv, r)
+
+    except:
+        print('invalid color')
+        holds = getHoldsArray(dest, [], r)
+    holds.sort()
+    print(holds)
+    print(len(holds))
+
+    i1 = int(input("enter index of first start hold"))
+    i2 = int(input("enter index of second start hold"))
 
     route = Route(holds = holds, start1 = holds[i1], start2 = holds[i2], finish = holds[0])
     lh = Limb(LimbName.LEFT_HAND, 2.5, 8, route.start_hold1)
     rh = Limb(LimbName.RIGHT_HAND, 2.5, 8, route.start_hold2)
     lf = Limb(LimbName.LEFT_LEG, 8, 5, route.holds[-1])
     rf = Limb(LimbName.RIGHT_LEG, 8, 5, route.holds[-1])
+    height = int(input('how tall are you (in inches)'))
     human = Person(height)
 
     state1 = State(lf, rf, lh, rh, human, route)
-    a_srftar1 = RouteFinder(state=state1)
+    rf = RouteFinder(state=state1)
     results1 = rf.uniformCostSearch()
 
     for action in results1:
@@ -29,34 +50,47 @@ def main(holds, i1, i2, height):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('holds', metavar='N', type=Hold, nargs='*',
-                    help='a list of strings')
+
     parser.add_argument(
-        '-o',
-        '--index1',
-        help='start hold 1 index',
+        '-f',
+        '--file',
+        help='image file name',
         required=True,
         type=str
     )
-
     parser.add_argument(
-        '-t',
-        '--index2',
-        help='start hold 2 index',
+        '-h',
+        '--h',
+        help='h value',
         required=True,
         type=int
     )
     parser.add_argument(
-        '-h',
-        '--height',
-        help='height',
+        '-s',
+        '--s',
+        help='s value',
+        required=True,
+        type=int
+    )
+
+    parser.add_argument(
+        '-v',
+        '--v',
+        help='v value',
+        required=True,
+        type=int
+    )
+    parser.add_argument(
+        '-r',
+        '--r',
+        help='r value',
         required=True,
         type=int
     )
     args = parser.parse_args()
-
-    holds = str(args.holds)
-    i1 = int(args.index1)
-    i2 = int(args.index2)
-    height = int(args.height)
-    main(holds, i1, i2, height)
+    file = str(args.file)
+    h = int(args.h)
+    s = int(args.s)
+    v = int(args.v)
+    r = int(args.r)
+    main(file, h, s, v, r)
