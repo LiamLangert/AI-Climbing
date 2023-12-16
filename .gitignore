@@ -1,7 +1,10 @@
-wall-images/
 holds/
-Difficulty Classifier Data/
-images/holds
 .venv/
 Classifier Data 2/
 Difficulty-Classifier/
+pytorch/
+runs/
+src/__pycache__
+src/.ipynb_checkpoints
+data.yaml
+pyproject.toml
