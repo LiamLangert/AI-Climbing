@@ -59,7 +59,6 @@ def get_holds_array(path, color, close):
     results = removeEdges(results)
     results = getHoldsNearColor(results, color, close)
     results = remove_bad_holds(results)
-
     dispResults(results)
     for r in results:
         holds = []

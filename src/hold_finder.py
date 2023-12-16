@@ -38,7 +38,6 @@ def dispResults(results):
     for r in results:
         im_array = r.plot()  # plot a BGR numpy array of predictions
         im = Image.fromarray(im_array[..., ::-1])  # RGB PIL image
-        im.show()  # show image
 
         DIR = "../images/results"
         len_folder = len(
@@ -48,8 +47,6 @@ def dispResults(results):
                 if os.path.isfile(os.path.join(DIR, name))
             ]
         )
-        print(len_folder)
-
         im.save(f"../images/results/results{len_folder}.jpg")  # save image
 
 
